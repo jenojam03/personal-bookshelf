@@ -1,76 +1,76 @@
-# 📚 BookShelf - Libreria Personale
+# 📚 BookShelf - Personal Library Management System
 
-Un'applicazione desktop in Java per la gestione di una libreria personale, progettata seguendo i principi della programmazione orientata agli oggetti, design pattern consolidati e una GUI moderna in stile dashboard React.
-
----
-
-## ✨ Funzionalità
-
-- **Gestione Catalogo**:
-  - Inserimento di nuovi libri con controllo univocità dell'ISBN.
-  - Modifica dello stato di lettura (`DA LEGGERE`, `IN LETTURA`, `LETTO`) e della valutazione a stelle (0-5).
-  - Rimozione di libri con richiesta di conferma.
-- **Ricerca & Filtraggio Avanzato**:
-  - Ricerca istantanea per titolo, autore o codice ISBN.
-  - Filtri combinati per **Genere letterario** e **Stato di lettura**.
-  - Possibilità di resettare e mostrare l'intero catalogo.
-- **Ordinamento Flessibile**:
-  - Ordinamento alfabetico per Titolo (A-Z, Z-A).
-  - Ordinamento alfabetico per Autore (A-Z, Z-A).
-  - Ordinamento per Valutazione (crescente e decrescente).
-- **Undo / Redo Completo**:
-  - Storico dei comandi con cronologia per annullare e ripristinare aggiunte, modifiche e rimozioni.
-- **Persistenza Dati JSON**:
-  - Salvataggio e caricamento automatico su file JSON tramite Jackson.
-  - Creazione automatica della directory di destinazione se mancante.
-- **UI Moderna & Responsiva**:
-  - Interfaccia pulita e moderna ispirata al design React/Tailwind.
-  - Griglia di card responsive che si adatta fluidamente alla dimensione della finestra (solo scroll verticale).
-  - Icone vettoriali nitide su qualsiasi risoluzione/sistema operativo.
-  - Badge colorati per lo stato di lettura e rating a stelle vettoriali.
+A Java desktop application for managing a personal book collection, designed following object-oriented programming principles, proven software design patterns, and a modern React/Tailwind-inspired GUI.
 
 ---
 
-## 🏗️ Architettura e Design Pattern
+## ✨ Features
 
-Il progetto adotta un'architettura modulare e diversi pattern di progettazione software:
-
-- **Model-View-Controller (MVC)**: Disaccoppiamento tra il modello dei dati, la logica di controllo e l'interfaccia grafica.
-- **Facade Pattern (`FacadeLibreria`)**: Punto d'accesso unificato per la GUI a tutte le funzionalità del sistema (ricerca, filtri, ordinamento, comandi e persistenza).
-- **Observer Pattern (`ObserverIF`)**: Notifica automatica alla vista GUI dei cambiamenti avvenuti nel catalogo.
-- **Command Pattern (`Command`, `HistoryCommandHandler`)**: Incapsulamento delle operazioni (`AggiungiCommand`, `ModificaCommand`, `RimuoviCommand`) per gestire Undo e Redo.
-- **Strategy Pattern (`OrdinamentoStrategy`)**: Algoritmi di ordinamento intercambiabili (`OrdinaPerTitolo`, `OrdinaPerAutore`, `OrdinaPerValutazione`).
-- **Chain of Responsibility (`Filtro`, `FiltroPerGenere`, `FiltroPerStato`)**: Catena di filtri per applicare criteri multipli ai libri.
+- **Catalog Management**:
+  - Add new books with ISBN uniqueness validation.
+  - Edit reading status (`DA LEGGERE` / To Read, `IN LETTURA` / Reading, `LETTO` / Read) and star rating (0-5).
+  - Delete books with confirmation dialogs.
+- **Advanced Search & Filtering**:
+  - Real-time search across titles, authors, and ISBN codes.
+  - Combined filters by **Literary Genre** and **Reading Status**.
+  - Quick reset button to display the full catalog.
+- **Flexible Sorting**:
+  - Alphabetical sorting by Title (A-Z, Z-A).
+  - Alphabetical sorting by Author (A-Z, Z-A).
+  - Rating sorting (ascending and descending).
+- **Comprehensive Undo / Redo**:
+  - Action history management allowing users to undo and redo additions, modifications, and deletions.
+- **JSON Data Persistence**:
+  - Automatic saving and loading using Jackson JSON processing.
+  - Automatic directory creation if the target path does not exist.
+- **Modern & Responsive UI**:
+  - Clean and polished user interface inspired by modern React dashboards.
+  - Responsive card grid that dynamically adapts to window resizing with vertical scrolling only.
+  - Crisp vector icons (`Graphics2D`) ensuring high definition across all displays and operating systems.
+  - Colored status badges and vector star ratings.
 
 ---
 
-## 🛠️ Tecnologie Utilizzate
+## 🏗️ Architecture & Design Patterns
 
-- **Linguaggio**: Java 21
+The project follows a modular architecture leveraging several software design patterns:
+
+- **Model-View-Controller (MVC)**: Decouples the domain data model, control logic, and graphical interface.
+- **Facade Pattern (`FacadeLibreria`)**: Provides a unified interface for the GUI to interact with all subsystem features (search, filtering, sorting, command history, and persistence).
+- **Observer Pattern (`ObserverIF`)**: Automatically notifies the GUI view whenever changes occur in the book collection.
+- **Command Pattern (`Command`, `HistoryCommandHandler`)**: Encapsulates actions (`AggiungiCommand`, `ModificaCommand`, `RimuoviCommand`) to support Undo/Redo operations.
+- **Strategy Pattern (`OrdinamentoStrategy`)**: Implements interchangeable sorting algorithms (`OrdinaPerTitolo`, `OrdinaPerAutore`, `OrdinaPerValutazione`).
+- **Chain of Responsibility (`Filtro`, `FiltroPerGenere`, `FiltroPerStato`)**: Chains filtering criteria to evaluate multiple conditions seamlessly.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Language**: Java 21
 - **Build Tool**: Apache Maven
-- **GUI Framework**: Java Swing (con componenti custom e icone vettoriali `Graphics2D`)
+- **GUI Framework**: Java Swing (custom components and vector `Graphics2D` icons)
 - **JSON Processing**: Jackson (`jackson-databind` 2.15.2)
 - **Unit Testing**: JUnit Jupiter 5.10.0
 
 ---
 
-## 🚀 Avvio dell'Applicazione
+## 🚀 Getting Started
 
-### Prerequisiti
-- Java JDK 21 installato
-- Maven (o wrapper)
+### Prerequisites
+- Java JDK 21 installed
+- Apache Maven
 
-### Compilazione ed Esecuzione
+### Build & Run
 
 ```bash
-# Compilazione del progetto
+# Compile the project
 mvn clean compile
 
-# Esecuzione dei test
+# Run unit tests
 mvn test
 
-# Avvio dell'applicazione
+# Launch the application
 mvn exec:java -Dexec.mainClass="org.example.Main"
 ```
 
-All'avvio, se non ancora configurato, l'applicazione consentirà di selezionare il file JSON in cui memorizzare il proprio catalogo.
+On the first launch (if not yet configured), the application will prompt you to choose the JSON file location where your catalog data will be stored.
