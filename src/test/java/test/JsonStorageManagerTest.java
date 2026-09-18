@@ -15,12 +15,14 @@ public class JsonStorageManagerTest {
 
     private static File tempFile;
     private static final ObjectMapper mapper = new ObjectMapper();
+    private static String percorsoOriginale = ConfigManager.caricaPercorso();
 
     @BeforeAll
     static void setupClass() throws Exception {
 
         String percorso = "C:\\Users\\giada\\Desktop\\libri.json";
         tempFile = new File(percorso);
+        ConfigManager.salvaPercorso(percorso);
     }
 
     @AfterEach
@@ -73,6 +75,12 @@ public class JsonStorageManagerTest {
         // Verifico che venga restituito un dizionario vuoto
         assertNotNull(libri, "La mappa restituita non deve essere null");
         assertTrue(libri.isEmpty(), "La mappa dei libri dovrebbe essere vuota perché il file non esiste");
+    }
+
+    @AfterAll
+    static void ripristinaPercorso(){
+        ConfigManager.salvaPercorso(percorsoOriginale);
+        tempFile.delete();
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.*;
 public class Libreria {
 
 
-    private Map<String, Libro> libri = new HashMap<>(); //archivio di tutti i libri
+    private Map<String, Libro> libri = new LinkedHashMap<>(); //archivio di tutti i libri
     private List<ObserverIF> observers = new ArrayList<>(); //supporto al pattern Observer
     private List<Libro> daVisualizzare = new ArrayList<>(libri.values()); //vista da fornire alla GUI
 
@@ -98,13 +98,14 @@ public class Libreria {
     public void setLibri(Map<String, Libro> libris) {
         libri.clear();
         libri.putAll(libris);
+        daVisualizzare = new ArrayList<>(libri.values());
         notifyObservers();
     }
 
 
     //RICERCA
     public void ricerca(String criterio) {
-        Set<Libro> setTemporaneo = new HashSet<>();
+        Set<Libro> setTemporaneo = new LinkedHashSet<>();
         parola = criterio;
         Collection<Libro> lista;
 

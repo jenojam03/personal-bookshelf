@@ -1,4 +1,4 @@
-package test.chain;
+package test;
 
 import chain.Filtro;
 import chain.FiltroPerGenere;

@@ -1,8 +1,3 @@
-/*Libro l1 = new Libro("Piccole donne", "Louisa May Alcott", "123456789", Genere.ROMANZO, StatoLettura.LETTO, 5);
-        Libro l2 = new Libro("Storia del nuovo cognome", "Elena Ferrante", "123789923", Genere.ROMANZO, StatoLettura.IN_LETTURA, 5);
-        Libro l3 = new Libro("Il codice Da Vinci", "Dan Brown", "987654321", Genere.GIALLO, StatoLettura.LETTO, 5);
-        Libro l4 = new Libro("Storia della bambina perduta", "Elena Ferrante", "3249742314", Genere.ROMANZO, StatoLettura.LETTO, 4);
-        */
 package test;
 
 import controller.FacadeLibreria;
@@ -24,8 +19,7 @@ public class FacadeLibreriaTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        // Simula caricamento iniziale vuoto
-        JsonStorageManager.salvataggio(new HashMap<>()); // evita errori statici
+        JsonStorageManager.salvataggio(new HashMap<>());
         facade = new FacadeLibreria();
         facade.setRicerca(false);
         facade.setFiltroAttivo(false);

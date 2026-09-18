@@ -1,7 +1,13 @@
 package UI;
 
 import java.awt.*;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
+/**
+ * FlowLayout che calcola l'altezza necessaria per andare a capo
+ * all'interno di un JScrollPane, impedendo la comparsa di scrollbar orizzontali.
+ */
 public class WrapLayout extends FlowLayout {
 
     public WrapLayout() {
@@ -32,14 +38,21 @@ public class WrapLayout extends FlowLayout {
         synchronized (target.getTreeLock()) {
             int targetWidth = target.getSize().width;
 
+            Container container = target;
+            while (container.getSize().width == 0 && container.getParent() != null) {
+                container = container.getParent();
+            }
+            targetWidth = container.getSize().width;
+
             if (targetWidth == 0) {
                 targetWidth = Integer.MAX_VALUE;
             }
 
-            Insets insets = target.getInsets();
             int hgap = getHgap();
             int vgap = getVgap();
-            int maxWidth = targetWidth - insets.left - insets.right;
+            Insets insets = target.getInsets();
+            int horizontalInsetsAndGap = insets.left + insets.right + (hgap * 2);
+            int maxWidth = targetWidth - horizontalInsetsAndGap;
 
             Dimension dim = new Dimension(0, 0);
             int rowWidth = 0;
@@ -70,8 +83,14 @@ public class WrapLayout extends FlowLayout {
 
             addRow(dim, rowWidth, rowHeight);
 
-            dim.width += insets.left + insets.right + hgap * 2;
+            dim.width += horizontalInsetsAndGap;
             dim.height += insets.top + insets.bottom + vgap * 2;
+
+            // Se siamo dentro a un JScrollPane, assicuriamoci che lo scroll pane sappia che non serve scrollbar orizzontale
+            Container scrollPane = SwingUtilities.getAncestorOfClass(JScrollPane.class, target);
+            if (scrollPane != null && target.isValid()) {
+                dim.width -= (hgap + 1);
+            }
 
             return dim;
         }

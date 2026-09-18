@@ -2,8 +2,6 @@ package test;
 
 import model.*;
 import UI.ObserverIF;
-import chain.FiltroPerGenere;
-import chain.FiltroPerStato;
 import strategy.OrdinamentoStrategy;
 import strategy.OrdinaPerTitolo;
 import org.junit.jupiter.api.*;
@@ -118,12 +116,24 @@ public class LibreriaTest {
 
     @Test
     void testSetLibri() {
-        Map<String, Libro> nuovi = new HashMap<>();
+        Map<String, Libro> nuovi = new LinkedHashMap<>();
         nuovi.put(l1.getISBN(), l1);
         nuovi.put(l2.getISBN(), l2);
         nuovi.put(l3.getISBN(), l3);
         libreria.setLibri(nuovi);
         assertEquals(3, libreria.getTuttiILibri().size());
+    }
+
+    @Test
+    void testOrdineInserimentoLinkedHashMap() {
+        libreria.aggiungiLibro(l2);
+        libreria.aggiungiLibro(l1);
+        libreria.aggiungiLibro(l3);
+
+        List<Libro> visualizzati = libreria.getDaVisualizzare();
+        assertEquals(l2, visualizzati.get(0));
+        assertEquals(l1, visualizzati.get(1));
+        assertEquals(l3, visualizzati.get(2));
     }
 
     @Test

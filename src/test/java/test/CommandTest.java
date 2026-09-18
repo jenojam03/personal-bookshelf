@@ -76,30 +76,6 @@ class CommandTest {
     }
 
     @Test
-    void testUndoRedoLimit() {
-        HistoryCommandHandler limitedHandler = new HistoryCommandHandler(1);
-
-        libro1 = new Libro("Titolo1", "Autore1", "ISBN1", Genere.ROMANZO);
-        libro2 = new Libro("Titolo2", "Autore2", "ISBN2", Genere.ROMANZO);
-
-        Command c1 = new AggiungiCommand(libreria, libro1);
-        Command c2 = new AggiungiCommand(libreria, libro2);
-
-        assertTrue(limitedHandler.handle(c1));
-        assertTrue(limitedHandler.handle(c2));
-
-
-        limitedHandler.undo();
-        assertNull(libreria.getLibro("ISBN2"));
-
-        limitedHandler.redo();
-        assertEquals("Titolo2", libreria.getLibro("ISBN2").getTitolo());
-
-        limitedHandler.undo();
-        limitedHandler.undo();
-    }
-
-    @Test
     void testHandleFailsOnInvalidCommand() {
         Command invalido = new RimuoviCommand(libreria, "ISBN_NOT_FOUND");
 

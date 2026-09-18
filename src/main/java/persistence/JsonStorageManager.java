@@ -23,11 +23,11 @@ public class JsonStorageManager {
     public static Map<String, Libro> caricamento() throws IOException {
         File file = getFile();
         if (!file.exists()){
-            return new HashMap<>();
+            return new LinkedHashMap<>();
         }
 
 
-        Map<String, Libro> libri = mapper.readValue(file, new TypeReference<Map<String, Libro>>() {});
+        Map<String, Libro> libri = mapper.readValue(file, new TypeReference<LinkedHashMap<String, Libro>>() {});
 
         return libri;
     }
@@ -35,6 +35,9 @@ public class JsonStorageManager {
     // Salva una mappa ISBN -> Libro
     public static void salvataggio(Map<String, Libro> libri) throws IOException {
         File file = getFile();
+        if (file.getParentFile() != null && !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
         mapper.writerWithDefaultPrettyPrinter().writeValue(file, libri);
     }
 }
